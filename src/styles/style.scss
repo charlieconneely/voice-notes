@@ -1,0 +1,51 @@
+$primaryColour: #C9F4C8;
+$secondaryColour: #ffffff;
+$mainFont: monospace;
+
+@mixin centreWithBgColour($height, $colour, $disp) {
+    justify-content: center;
+    align-items: center;
+    background-color: $colour;
+    height: $height;
+    display: $disp;
+}
+
+.container {
+    @include centreWithBgColour(800px, $primaryColour, block);
+}
+
+.notes-container {
+    @include centreWithBgColour(250px, $primaryColour, block);
+}
+
+.note {
+    @include centreWithBgColour(60px, $primaryColour, flex);
+}
+
+.option {
+    @include centreWithBgColour(120px, $secondaryColour, flex);
+}
+
+.controls {
+    @include centreWithBgColour(100px, $primaryColour, flex);
+}
+
+.heading {
+    padding-top: 5%;
+    @include centreWithBgColour(50px, $primaryColour, flex);    
+}
+
+.authors {
+    padding-bottom: 5%;
+    @include centreWithBgColour(40px, $primaryColour, flex); 
+}
+
+h2 {  
+    font-family: $mainFont;
+    font-size: 4rem;
+}
+
+p {
+    font-family: $mainFont;
+    font-size: 0.9rem;
+}

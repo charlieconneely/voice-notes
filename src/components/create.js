@@ -70,11 +70,10 @@ const Create = (props) => {
     var notesArr = [...notes];
     return (
         <div className="container">
-            <div className="option">
+            <div className="controls">
                 <p>{transcript ? transcript : '...'}</p>
             </div>
-
-            <div className="option">
+            <div className="controls">
                 <h3>Notes: </h3> 
             </div>  
         
