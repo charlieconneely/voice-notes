@@ -1,0 +1,42 @@
+.container {
+    height: 800px;
+    justify-content: center;
+    align-items: center;
+    background-color: #C9F4C8;
+}
+
+.option {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 120px;
+    background-color: #ffffff;
+}
+
+.heading {
+    padding-top: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;    
+}
+
+.authors {
+    padding-bottom: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px; 
+}
+
+h2, p {
+    font-family: monospace;
+}
+
+h2 {
+    font-size: 4rem;
+}
+
+p {
+    font-size: 0.9rem;
+}
