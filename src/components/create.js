@@ -1,4 +1,5 @@
 import { React, useState, useEffect } from 'react'
+import useLocalStorage from '../hooks/useLocalStorage'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 import { Button } from '@material-ui/core'
 import KeyboardVoiceIcon from '@material-ui/icons/KeyboardVoice'
@@ -9,6 +10,8 @@ const Create = (props) => {
 
     const [isListening, setIsListening] = useState(false);
     const [notes, setNotes] = useState([]);
+    const [storedNotes, setStoredNotes] = useLocalStorage("notes", []);
+
     const listenButtonText = isListening ? 'Stop Listening' : 'Start Listening'
 
     const commands = [
@@ -55,6 +58,15 @@ const Create = (props) => {
         setNotes(notes.filter(note => note !== lastItem));
     }
 
+    function save() {
+        setStoredNotes([...storedNotes, ...notes])
+        setNotes([])
+    }
+
+    const deleteNote = (val) => {
+        setNotes(notes.filter(note => note !== val));
+    }
+
     var notesArr = [...notes];
     return (
         <div className="container">
@@ -63,15 +75,15 @@ const Create = (props) => {
             </div>
 
             <div className="option">
-                <h3>Don't forget: </h3> 
+                <h3>Notes: </h3> 
             </div>  
         
-            {notesArr.map(note => <Note note={note}/>)}
+            {notesArr.map(note => <Note deleteNote={deleteNote} note={note}/>)}
 
             <div className="controls">
                 <Button onClick={undo} variant='outlined' size='small'>Undo</Button>
                 <Button onClick={resetTranscript} variant='outlined' size='small'>Reset</Button>
-                <Button variant='outlined' size='small'>Save All</Button>
+                <Button onClick={save} variant='outlined' size='small'>Save All</Button>
             </div>
             <div className="option">
                 <Button onClick={changeIsListening} variant='outlined' startIcon={<KeyboardVoiceIcon />}
