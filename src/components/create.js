@@ -1,30 +1,48 @@
 import { React, useState, useEffect } from 'react'
-import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 import { Button } from '@material-ui/core'
+import KeyboardVoiceIcon from '@material-ui/icons/KeyboardVoice'
+import Note from './note'
 import '../styles/style.css'
 
 const Create = (props) => {
 
     const [isListening, setIsListening] = useState(false);
-    const { transcript, resetTranscript } = useSpeechRecognition();
+    const [notes, setNotes] = useState([]);
     const listenButtonText = isListening ? 'Stop Listening' : 'Start Listening'
 
-    useEffect(() => {
+    const commands = [
+        {
+            command: ["Don't forget *", "Remember *"],
+            callback: (note) => {isListening ? setNotes([...notes, `${note}`]) : alert('Not listening')}
+        },
+        {
+            command: "Stop listening",
+            callback: () => setIsListening(false) 
+        },
+        {
+            command: "Start listening",
+            callback: () => setIsListening(true) 
+        }
+    ]
 
+    const { transcript, resetTranscript } = useSpeechRecognition({ commands });
+
+    useEffect(() => {
+        if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
+            alert("Your browser is not supported!");
+        } else {
+            SpeechRecognition.startListening({ continuous: true }) 
+        }
     }, [])
 
     function backToHome() {
         props.history.push('/');
     }
 
+    /* Called from Button onclick */ 
     function changeIsListening() {
         setIsListening(!isListening)
-
-        if(isListening) { 
-            SpeechRecognition.stopListening() 
-        } else {
-            SpeechRecognition.startListening({ continuous: true })
-        }
     }   
 
     return (
@@ -32,12 +50,19 @@ const Create = (props) => {
             <div className="option">
                 <p>{transcript ? transcript : '...'}</p>
             </div>
+
+            <div className="option">
+                <h3>Don't forget: </h3> 
+            </div>
+
+            {notes.map(note => <Note note={note} />)}
+
             <div className="controls">
                 <Button variant='outlined' size='small'>Undo</Button>
                 <Button onClick={resetTranscript} variant='outlined' size='small'>Reset</Button>
             </div>
             <div className="option">
-                <Button onClick={changeIsListening} variant='outlined' 
+                <Button onClick={changeIsListening} variant='outlined' startIcon={<KeyboardVoiceIcon />}
                         color={isListening ? 'secondary' : 'primary'} size='medium'>{listenButtonText}</Button>
             </div>
             <div className="option">
