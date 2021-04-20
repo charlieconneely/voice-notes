@@ -35,6 +35,10 @@ const Create = (props) => {
             SpeechRecognition.startListening({ continuous: true }) 
         }
     }, [])
+    
+    useEffect(() => {
+        console.log('changed')
+    }, [notes]) 
 
     function backToHome() {
         props.history.push('/');
@@ -45,6 +49,13 @@ const Create = (props) => {
         setIsListening(!isListening)
     }   
 
+    function undo() {
+        /* Retrieve last item from list and remove it */
+        let lastItem = notes.pop();
+        setNotes(notes.filter(note => note !== lastItem));
+    }
+
+    var notesArr = [...notes];
     return (
         <div className="container">
             <div className="option">
@@ -53,13 +64,14 @@ const Create = (props) => {
 
             <div className="option">
                 <h3>Don't forget: </h3> 
-            </div>
-
-            {notes.map(note => <Note note={note} />)}
+            </div>  
+        
+            {notesArr.map(note => <Note note={note}/>)}
 
             <div className="controls">
-                <Button variant='outlined' size='small'>Undo</Button>
+                <Button onClick={undo} variant='outlined' size='small'>Undo</Button>
                 <Button onClick={resetTranscript} variant='outlined' size='small'>Reset</Button>
+                <Button variant='outlined' size='small'>Save All</Button>
             </div>
             <div className="option">
                 <Button onClick={changeIsListening} variant='outlined' startIcon={<KeyboardVoiceIcon />}
