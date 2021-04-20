@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button } from '@material-ui/core'
-import '../styles/home.css'
+import '../styles/style.css'
 
 const Home = (props) => {
 
