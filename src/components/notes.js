@@ -21,8 +21,6 @@ const Notes = (props) => {
     }
 
     function backToHome() {
-        console.log(storedNotes);
-        console.log(storedNotes[0])
         props.history.push('/');
     }
 
@@ -31,7 +29,7 @@ const Notes = (props) => {
     return (
         <div className="container">
             <div className="heading">
-                <h2>Notes:</h2>
+                <h3>Remember...</h3>
             </div>
 
             {notesArr.map(note => <Note deleteNote={deleteNote} note={note}/> )} 

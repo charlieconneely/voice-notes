@@ -17,17 +17,33 @@ const Create = (props) => {
     const commands = [
         {
             command: ["Don't forget *", "Remember *"],
-            callback: (note) => {isListening ? setNotes([...notes, `${note}`]) : alert('Not listening')}
+            callback: (note) => {isListening ? setNotes([...notes, `${note}`]) : alert('Not listening.')}
         },
         {
-            command: "Stop listening",
-            callback: () => setIsListening(false) 
+            command: ["Stop listening", "Stop recording"],
+            callback: () => setIsListening(false)
         },
         {
-            command: "Start listening",
-            callback: () => setIsListening(true) 
+            command: ["Start listening", "Start recording"],
+            callback: () => setIsListening(true)
+        },
+        {
+            command: ["Reset transcript", "Reset the transcript", "Clear transcript", "Clear the transcript"],
+            callback: () => resetTranscript()
+        },
+        {
+            command: ["Undo"],
+            callback: () => undo()
+        },
+        {
+            command: ["Save all", "Save"],
+            callback: () => saveNotes()
+        },
+        {
+            command: ["Go back", "Back"],
+            callback: () => backToHome() 
         }
-    ]
+    ]   
 
     const { transcript, resetTranscript } = useSpeechRecognition({ commands });
 
@@ -35,22 +51,17 @@ const Create = (props) => {
         if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
             alert("Your browser is not supported!");
         } else {
-            SpeechRecognition.startListening({ continuous: true }) 
+            SpeechRecognition.startListening({ continuous: true })
         }
     }, [])
-    
+
     useEffect(() => {
-        console.log('changed')
-    }, [notes]) 
+        
+    }, [notes])
 
     function backToHome() {
         props.history.push('/');
     }
-
-    /* Called from Button onclick */ 
-    function changeIsListening() {
-        setIsListening(!isListening)
-    }   
 
     function undo() {
         /* Retrieve last item from list and remove it */
@@ -58,8 +69,10 @@ const Create = (props) => {
         setNotes(notes.filter(note => note !== lastItem));
     }
 
-    function save() {
+    function saveNotes() {
+        /* Save on localStorage */
         setStoredNotes([...storedNotes, ...notes])
+        /* Clear local array */
         setNotes([])
     }
 
@@ -74,18 +87,18 @@ const Create = (props) => {
                 <p>{transcript ? transcript : '...'}</p>
             </div>
             <div className="controls">
-                <h3>Notes: </h3> 
-            </div>  
-        
+                <h3>Notes: </h3>
+            </div>
+
             {notesArr.map(note => <Note deleteNote={deleteNote} note={note}/>)}
 
             <div className="controls">
                 <Button onClick={undo} variant='outlined' size='small'>Undo</Button>
                 <Button onClick={resetTranscript} variant='outlined' size='small'>Reset</Button>
-                <Button onClick={save} variant='outlined' size='small'>Save All</Button>
+                <Button onClick={saveNotes} variant='outlined' size='small'>Save All</Button>
             </div>
             <div className="option">
-                <Button onClick={changeIsListening} variant='outlined' startIcon={<KeyboardVoiceIcon />}
+                <Button onClick={() => setIsListening(!isListening)} variant='outlined' startIcon={<KeyboardVoiceIcon />}
                         color={isListening ? 'secondary' : 'primary'} size='medium'>{listenButtonText}</Button>
             </div>
             <div className="option">
