@@ -91,7 +91,9 @@ const Create = (props) => {
                 <h3>Notes: </h3>
             </div>
 
-            {notesArr.map(note => <Note deleteNote={deleteNote} note={note}/>)}
+            {notesArr.map((note, index) => 
+                <Note key={note} deleteNote={deleteNote} note={note} index={index}/>
+            )}
 
             <div className="controls">
                 <Button onClick={undo} variant='outlined' size='small'>Undo</Button>

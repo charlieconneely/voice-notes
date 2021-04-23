@@ -13,8 +13,8 @@ const Note = (props) => {
     return(
         <div className="note">
             <p> <b>{props.index + 1}.</b> {props.note}</p>
-            <IconButton onClick={() => deleteNoteFromProps(props.note)} aria-label="delete" >
-                <DeleteIcon fontSize="small" />
+            <IconButton onClick={() => deleteNoteFromProps(props.note)} aria-label="delete">
+                <DeleteIcon fontSize="small"/>
             </IconButton>
         </div>
     )

@@ -1,6 +1,7 @@
 import { React, useEffect, useState } from 'react'
 import { Button } from '@material-ui/core'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
+import wordsToNumbers from 'words-to-numbers'
 
 import Note from './note'
 import '../styles/style.css'
@@ -16,7 +17,7 @@ const Notes = (props) => {
         },
         {
             command: ['Delete number *'],
-            callback: (index) => console.log('index: ' + index)
+            callback: (num) => handleNumber(num)
         }
     ]
     
@@ -27,6 +28,32 @@ const Notes = (props) => {
         let notes = JSON.parse(localStorage.getItem('notes'));
         setStoredNotes([...notes])
     }, [])      
+
+    const handleNumber = (word) => {
+        let wordString = handleHomonyms(word)
+        let number = wordsToNumbers(wordString)
+        number--;
+        if (number < storedNotes.length && number >= 0) {
+            deleteNote(storedNotes[number])
+        }
+    } 
+
+    const handleHomonyms = (word) => {       
+        switch(word)
+        {
+            case 'to':
+            case 'too':
+                return 'two'
+            case 'tree':
+                return 'three'
+            case 'for':
+                return 'four'
+            case 'ate':
+                return 'eight'
+            default:
+                return word;
+        }
+    }
 
     /* called from Note child component */
     const deleteNote = (val) => {
@@ -48,7 +75,7 @@ const Notes = (props) => {
             </div>
 
             {notesArr.map( (note, index) => 
-                <Note key={note} deleteNote={deleteNote} index={index} note={note}/> 
+                <Note key={note} deleteNote={deleteNote} index={index} note={note} /> 
             )} 
 
             <div className="note">
