@@ -5,7 +5,7 @@ import '../styles/style.css'
 
 const Note = (props) => {
 
-    function deleteNoteFromProps() {
+    const deleteNoteFromProps = () => {
         props.deleteNote(props.note);
     }
 

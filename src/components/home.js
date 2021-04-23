@@ -11,11 +11,11 @@ const Home = (props) => {
         history.goBack();
     }
 
-    function goToNotes() {
+    const goToNotes = () => {
         props.history.push('/notes');
     }
 
-    function goToCreate() {
+    const goToCreate = () => {
         props.history.push('/create');
     }
 

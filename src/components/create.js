@@ -59,17 +59,17 @@ const Create = (props) => {
         
     }, [notes])
 
-    function backToHome() {
+    const backToHome = () => {
         props.history.push('/');
     }
 
-    function undo() {
+    const undo = () => {
         /* Retrieve last item from list and remove it */
         let lastItem = notes.pop();
         setNotes(notes.filter(note => note !== lastItem));
     }
 
-    function saveNotes() {
+    const saveNotes = () => {
         /* Save on localStorage */
         setStoredNotes([...storedNotes, ...notes])
         /* Clear local array */

@@ -20,7 +20,7 @@ const Notes = (props) => {
         setStoredNotes([...notesArr])
     }
 
-    function backToHome() {
+    const backToHome = () => {
         props.history.push('/');
     }
 
