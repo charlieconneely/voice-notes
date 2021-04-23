@@ -25,7 +25,6 @@ const Notes = (props) => {
     }
 
     let notesArr = [...storedNotes];
-    //if (notesArr == null) notesArr = []; 
     return (
         <div className="container">
             <div className="heading">

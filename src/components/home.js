@@ -1,8 +1,15 @@
 import React from 'react'
 import { Button } from '@material-ui/core'
+import { useHistory } from 'react-router-dom'
 import '../styles/style.css'
 
 const Home = (props) => {
+
+    let history = useHistory();
+
+    const goToPrev = () => {
+        history.goBack();
+    }
 
     function goToNotes() {
         props.history.push('/notes');
@@ -25,6 +32,7 @@ const Home = (props) => {
             </div>
             <div className='option'>
                 <Button onClick={goToCreate} variant='outlined' size='large'>Create Note</Button>
+                <Button onClick={goToPrev}>Go back</Button>
             </div>
         </div>
     )
