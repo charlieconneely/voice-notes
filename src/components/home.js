@@ -1,12 +1,38 @@
-import React from 'react'
+import { React, useEffect } from 'react'
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 import { Button } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
+
 import '../styles/style.css'
 
 const Home = (props) => {
 
-    let history = useHistory();
+    const commands = [
+        { 
+            command: ['Go back', 'Back again'],
+            callback: () => goToPrev() 
+        },
+        {
+            command: 'view notes',
+            callback: () => goToNotes()
+        },
+        {
+            command: 'create note',
+            callback: () => goToCreate()
+        }
+    ]
 
+    useSpeechRecognition({ commands });
+
+    useEffect(() => {
+        if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
+            alert("Your browser does not support our speech recognition.");
+        } else {
+            SpeechRecognition.startListening({ continuous: true })
+        }
+    }, [])
+
+    let history = useHistory();
     const goToPrev = () => {
         history.goBack();
     }
@@ -32,10 +58,10 @@ const Home = (props) => {
             </div>
             <div className='option'>
                 <Button onClick={goToCreate} variant='outlined' size='large'>Create Note</Button>
-                <Button onClick={goToPrev}>Go back</Button>
             </div>
         </div>
     )
+
 }
 
 export default Home

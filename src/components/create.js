@@ -3,6 +3,7 @@ import useLocalStorage from '../hooks/useLocalStorage'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 import { Button } from '@material-ui/core'
 import KeyboardVoiceIcon from '@material-ui/icons/KeyboardVoice'
+
 import Note from './note'
 import '../styles/style.css'
 
@@ -106,6 +107,7 @@ const Create = (props) => {
             </div>
         </div>
     )
+
 }
 
 export default Create
