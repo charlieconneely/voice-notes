@@ -16,7 +16,6 @@ const Create = (props) => {
     const [storedEntries, setStoredEntries] = useLocalStorage("entries", []);
     const listenButtonText = isListening ? '"Stop Listening"' : '"Start Listening"'
 
-
     const commands = [
         {
             command: ["Don't forget *", "Remember *"],
@@ -43,8 +42,16 @@ const Create = (props) => {
             callback: () => undo()
         },
         {
-            command: ["Save all", "Save"],
-            callback: () => saveNotes()
+            command: "Save *",
+            callback: (field) => {
+                if (field === 'all') {
+                    saveAll();
+                } else if(field === 'notes') {
+                    saveNotes();
+                } else if(field === 'entry'){
+                    saveEntries();
+                }
+            }
         },
         {
             command: ["Go back", "Back"],
@@ -106,12 +113,12 @@ const Create = (props) => {
                         <Note key={note} deleteNote={deleteNote} note={note} index={index}/>
                     )}
                     <p>{notes.length === 0 ? '...' : ''}</p>
-                    <Button onClick={saveNotes} variant='outlined' size='small'>Save notes</Button>
+                    <Button onClick={saveNotes} variant='outlined' size='small'>"Save Notes"</Button>
                 </div>
                 <div className="row">
                     <h3>Diary Entries:</h3>
                     <p>{diaryEntry ? diaryEntry : '...'}</p>
-                    <Button onClick={saveEntries} variant='outlined' size='small'>Save Entry</Button>
+                    <Button onClick={saveEntries} variant='outlined' size='small'>"Save Entry"</Button>
                 </div>
             </div>
 
