@@ -45,6 +45,10 @@ const Home = (props) => {
         props.history.push('/create');
     }
 
+    const goToDiary = () => {
+        props.history.push('/diary')
+    }
+
     return (
         <div className="container">
             <div className='heading'>
@@ -55,6 +59,7 @@ const Home = (props) => {
             </div>
             <div className='option'>
                 <Button onClick={goToNotes} variant='outlined' size='large'>"View Notes"</Button>
+                <Button onClick={goToDiary} variant='outlined' size='large'>"View Diary"</Button>
             </div>
             <div className='option'>
                 <Button onClick={goToCreate} variant='outlined' size='large'>"Create Note"</Button>
