@@ -81,7 +81,6 @@ const Create = (props) => {
     const deleteNote = (val) => {
         setNotes(notes.filter(note => note !== val));
     }
-
     var notesArr = [...notes];
     return (
         <div className="container">
@@ -91,21 +90,24 @@ const Create = (props) => {
 
             <div className="rows">
                 <div className="row">
-                    <h3>Notes: </h3>
+                    <h3>Notes:</h3>
                     {notesArr.map((note, index) => 
                         <Note key={note} deleteNote={deleteNote} note={note} index={index}/>
-                    )} 
-                </div>
+                    )}
+                    <p>{notes.length === 0 ? '...' : ''}</p>
+                    <Button onClick={saveNotes} variant='outlined' size='small'>Save notes</Button>
+                </div> 
                 <div className="row">
                     <h3>Entries:</h3>
-                    <p>{diaryEntry ? diaryEntry : '...'}</p>
+                    <p>{diaryEntry ? diaryEntry : '...'}</p> 
+                    <Button variant='outlined' size='small'>Save Entry</Button>
                 </div>
             </div>
 
             <div className="controls">
-                <Button onClick={undo} variant='outlined' size='small'>"Undo"</Button>
-                <Button onClick={resetTranscript} variant='outlined' size='small'>"Reset"</Button>
-                <Button onClick={saveNotes} variant='outlined' size='small'>"Save All"</Button>
+                <Button onClick={undo} variant='outlined' size='medium'>"Undo"</Button>
+                <Button onClick={resetTranscript} variant='outlined' size='medium'>"Reset"</Button>
+                <Button onClick={saveNotes} variant='outlined' size='medium'>"Save All"</Button>
             </div>
             <div className="option">
                 <Button onClick={() => setIsListening(!isListening)} variant='outlined' startIcon={<KeyboardVoiceIcon />}
