@@ -8,14 +8,35 @@ import Entry from './entry'
 const Diary = (props) => {
 
     const [storedEntries, setStoredEntries] = useState([])
+    const commands = [
+        { 
+            command: ['Go back', 'Back'],
+            callback: () => backToHome() 
+        },
+        {
+            command: ['Delete number *'],
+            callback: (num) => handleNumber(num)
+        }
+    ]
 
+    useSpeechRecognition({ commands });
+    
     useEffect(() => {
+        SpeechRecognition.startListening({ continuous: true })
         let entries = JSON.parse(localStorage.getItem('entries'));
         setStoredEntries([...entries])
     }, [])
 
     const backToHome = () => {
         props.history.push('/');
+    }
+
+    const handleNumber = (word) => {
+        /* return -1 if number is invalid */
+        let num = isValidNumber(word, storedEntries)
+        if (num !== -1) {
+            deleteEntry(storedEntries[num])
+        }
     }
 
     /* called from Diary child component */
