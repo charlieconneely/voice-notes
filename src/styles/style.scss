@@ -8,7 +8,7 @@ $mainFont: monospace;
     background-color: $colour;
     height: $height;
     display: $disp;
-}  
+}
 
 @mixin fontParams($font, $size) {
     font-family: $font;
@@ -16,7 +16,8 @@ $mainFont: monospace;
 }
 
 .rows {
-    text-align: center;    
+    text-align: center;
+    padding-bottom: 2%;
     .row {
         padding-left: 5%;
         padding-right: 5%;
@@ -37,27 +38,31 @@ $mainFont: monospace;
 }
 
 .option {
-    @include centreWithBgColour(120px, $secondaryColour, flex);
+    @include centreWithBgColour(100px, $secondaryColour, flex);
 }
 
 .controls {
     @include centreWithBgColour(100px, $primaryColour, flex);
 }
-
+  
 .heading {
     padding-top: 5%;
-    @include centreWithBgColour(50px, $primaryColour, flex);    
+    @include centreWithBgColour(50px, $primaryColour, flex);
 }
 
 .authors {
     padding-bottom: 5%;
-    @include centreWithBgColour(40px, $primaryColour, flex); 
+    @include centreWithBgColour(40px, $primaryColour, flex);
 }
 
-h2 {  
-    @include fontParams($mainFont, 4rem);
+h2 {
+    @include fontParams($mainFont, 3.5rem);
 }
 
 p {
-    @include fontParams($mainFont, 0.9rem);
+    @include fontParams($mainFont, 0.8rem);
+}
+
+a {
+    color: inherit;
 }

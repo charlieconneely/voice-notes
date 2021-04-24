@@ -13,8 +13,9 @@ const Create = (props) => {
     const [notes, setNotes] = useState([]);
     const [diaryEntry, setDiaryEntry] = useState('');
     const [storedNotes, setStoredNotes] = useLocalStorage("notes", []);
-
+    const [storedEntries, setStoredEntries] = useLocalStorage("entries", []);
     const listenButtonText = isListening ? '"Stop Listening"' : '"Start Listening"'
+
 
     const commands = [
         {
@@ -47,9 +48,9 @@ const Create = (props) => {
         },
         {
             command: ["Go back", "Back"],
-            callback: () => backToHome() 
+            callback: () => backToHome()
         }
-    ]   
+    ]
 
     const { transcript, resetTranscript } = useSpeechRecognition({ commands });
 
@@ -78,6 +79,16 @@ const Create = (props) => {
         setNotes([])
     }
 
+    const saveEntries = () => {
+        setStoredEntries([...storedEntries, diaryEntry])
+        setDiaryEntry('')
+    }
+
+    const saveAll = () => {
+        saveEntries()
+        saveNotes()
+    }
+
     const deleteNote = (val) => {
         setNotes(notes.filter(note => note !== val));
     }
@@ -90,24 +101,24 @@ const Create = (props) => {
 
             <div className="rows">
                 <div className="row">
-                    <h3>Notes:</h3>
-                    {notesArr.map((note, index) => 
+                    <h3>Things to Remember:</h3>
+                    {notesArr.map((note, index) =>
                         <Note key={note} deleteNote={deleteNote} note={note} index={index}/>
                     )}
                     <p>{notes.length === 0 ? '...' : ''}</p>
                     <Button onClick={saveNotes} variant='outlined' size='small'>Save notes</Button>
-                </div> 
+                </div>
                 <div className="row">
-                    <h3>Entries:</h3>
-                    <p>{diaryEntry ? diaryEntry : '...'}</p> 
-                    <Button variant='outlined' size='small'>Save Entry</Button>
+                    <h3>Diary Entries:</h3>
+                    <p>{diaryEntry ? diaryEntry : '...'}</p>
+                    <Button onClick={saveEntries} variant='outlined' size='small'>Save Entry</Button>
                 </div>
             </div>
 
-            <div className="controls">
+          <div className="option">
                 <Button onClick={undo} variant='outlined' size='medium'>"Undo"</Button>
                 <Button onClick={resetTranscript} variant='outlined' size='medium'>"Reset"</Button>
-                <Button onClick={saveNotes} variant='outlined' size='medium'>"Save All"</Button>
+                <Button onClick={saveAll} variant='outlined' size='medium'>"Save All"</Button>
             </div>
             <div className="option">
                 <Button onClick={() => setIsListening(!isListening)} variant='outlined' startIcon={<KeyboardVoiceIcon />}

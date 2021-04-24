@@ -51,7 +51,7 @@ const Home = (props) => {
                 <h2>Voice Diary</h2> 
             </div>
             <div className='authors'>
-                <p>Created by: Charlie Conneely</p>
+                <p>Created by: <a href="https://github.com/charlieconneely">Charlie Conneely</a></p>
             </div>
             <div className='option'>
                 <Button onClick={goToNotes} variant='outlined' size='large'>"View Notes"</Button>
