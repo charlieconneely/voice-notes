@@ -1,6 +1,8 @@
 import { useEffect, useState, React } from 'react'
 import { Button } from '@material-ui/core'
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 
+import isValidNumber from './numberIdentifier'
 import Entry from './entry'
 
 const Diary = (props) => {

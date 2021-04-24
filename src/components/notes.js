@@ -1,9 +1,9 @@
 import { React, useEffect, useState } from 'react'
 import { Button } from '@material-ui/core'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
-import wordsToNumbers from 'words-to-numbers'
 
 import Note from './note'
+import isValidNumber from './numberIdentifier'
 import '../styles/style.css'
 
 const Notes = (props) => {
@@ -30,30 +30,12 @@ const Notes = (props) => {
     }, [])      
 
     const handleNumber = (word) => {
-        let wordString = handleHomonyms(word)
-        let number = wordsToNumbers(wordString)
-        number--;
-        if (number < storedNotes.length && number >= 0) {
-            deleteNote(storedNotes[number])
+        /* return -1 if number is invalid */
+        let num = isValidNumber(word, storedNotes)
+        if (num !== -1) {
+            deleteNote(storedNotes[num])
         }
     } 
-
-    const handleHomonyms = (word) => {       
-        switch(word)
-        {
-            case 'to':
-            case 'too':
-                return 'two'
-            case 'tree':
-                return 'three'
-            case 'for':
-                return 'four'
-            case 'ate':
-                return 'eight'
-            default:
-                return word;
-        }
-    }
 
     /* called from Note child component */
     const deleteNote = (val) => {
