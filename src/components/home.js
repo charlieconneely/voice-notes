@@ -54,10 +54,10 @@ const Home = (props) => {
                 <p>Created by: Charlie Conneely</p>
             </div>
             <div className='option'>
-                <Button onClick={goToNotes} variant='outlined' size='large'>View Notes</Button>
+                <Button onClick={goToNotes} variant='outlined' size='large'>"View Notes"</Button>
             </div>
             <div className='option'>
-                <Button onClick={goToCreate} variant='outlined' size='large'>Create Note</Button>
+                <Button onClick={goToCreate} variant='outlined' size='large'>"Create Note"</Button>
             </div>
         </div>
     )

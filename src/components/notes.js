@@ -77,9 +77,11 @@ const Notes = (props) => {
             {notesArr.map( (note, index) => 
                 <Note key={note} deleteNote={deleteNote} index={index} note={note} /> 
             )} 
-
             <div className="note">
-                <Button onClick={backToHome} variant='outlined' size='small'>Back</Button>
+                <Button onClick={backToHome} variant='outlined' size='small'>"Back"</Button>
+            </div>
+            <div className="authors">
+                <p>Delete command: "delete number _"</p>
             </div>
         </div>
     )

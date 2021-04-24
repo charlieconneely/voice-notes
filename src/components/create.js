@@ -11,14 +11,19 @@ const Create = (props) => {
 
     const [isListening, setIsListening] = useState(false);
     const [notes, setNotes] = useState([]);
+    const [diaryEntry, setDiaryEntry] = useState('');
     const [storedNotes, setStoredNotes] = useLocalStorage("notes", []);
 
-    const listenButtonText = isListening ? 'Stop Listening' : 'Start Listening'
+    const listenButtonText = isListening ? '"Stop Listening"' : '"Start Listening"'
 
     const commands = [
         {
             command: ["Don't forget *", "Remember *"],
             callback: (note) => {isListening ? setNotes([...notes, `${note}`]) : alert('Not listening.')}
+        },
+        {
+            command: 'Dear diary *',
+            callback: (entry) => {isListening ? setDiaryEntry(entry) : alert('Not listening.')}
         },
         {
             command: ["Stop listening", "Stop recording"],
@@ -29,7 +34,7 @@ const Create = (props) => {
             callback: () => setIsListening(true)
         },
         {
-            command: ["Reset transcript", "Reset the transcript", "Clear transcript", "Clear the transcript"],
+            command: ["Reset transcript", "Reset the transcript", "Clear transcript", "Clear the transcript", "Reset"],
             callback: () => resetTranscript()
         },
         {
@@ -55,10 +60,6 @@ const Create = (props) => {
             SpeechRecognition.startListening({ continuous: true })
         }
     }, [])
-
-    useEffect(() => {
-        
-    }, [notes])
 
     const backToHome = () => {
         props.history.push('/');
@@ -87,25 +88,31 @@ const Create = (props) => {
             <div className="controls">
                 <p>{transcript ? transcript : '...'}</p>
             </div>
-            <div className="controls">
-                <h3>Notes: </h3>
+
+            <div className="rows">
+                <div className="row">
+                    <h3>Notes: </h3>
+                    {notesArr.map((note, index) => 
+                        <Note key={note} deleteNote={deleteNote} note={note} index={index}/>
+                    )} 
+                </div>
+                <div className="row">
+                    <h3>Entries:</h3>
+                    <p>{diaryEntry ? diaryEntry : '...'}</p>
+                </div>
             </div>
 
-            {notesArr.map((note, index) => 
-                <Note key={note} deleteNote={deleteNote} note={note} index={index}/>
-            )}
-
             <div className="controls">
-                <Button onClick={undo} variant='outlined' size='small'>Undo</Button>
-                <Button onClick={resetTranscript} variant='outlined' size='small'>Reset</Button>
-                <Button onClick={saveNotes} variant='outlined' size='small'>Save All</Button>
+                <Button onClick={undo} variant='outlined' size='small'>"Undo"</Button>
+                <Button onClick={resetTranscript} variant='outlined' size='small'>"Reset"</Button>
+                <Button onClick={saveNotes} variant='outlined' size='small'>"Save All"</Button>
             </div>
             <div className="option">
                 <Button onClick={() => setIsListening(!isListening)} variant='outlined' startIcon={<KeyboardVoiceIcon />}
                         color={isListening ? 'secondary' : 'primary'} size='medium'>{listenButtonText}</Button>
             </div>
             <div className="option">
-                <Button onClick={backToHome} variant='outlined' size='small'>Back</Button>
+                <Button onClick={backToHome} variant='outlined' size='small'>"Back"</Button>
             </div>
         </div>
     )

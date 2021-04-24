@@ -1,3 +1,13 @@
+.rows {
+  text-align: center;
+}
+
+.rows .row {
+  padding-left: 5%;
+  padding-right: 5%;
+  display: inline-block;
+}
+
 .container {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
@@ -5,7 +15,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background-color: #C9F4C8;
+  background-color: #7bfab0;
   height: 800px;
   display: block;
 }
@@ -17,7 +27,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background-color: #C9F4C8;
+  background-color: #7bfab0;
   height: 250px;
   display: block;
 }
@@ -29,7 +39,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background-color: #C9F4C8;
+  background-color: #7bfab0;
   height: 60px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -43,7 +53,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background-color: #ffffff;
+  background-color: #f1f1f1;
   height: 120px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -57,7 +67,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background-color: #C9F4C8;
+  background-color: #7bfab0;
   height: 100px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -72,7 +82,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background-color: #C9F4C8;
+  background-color: #7bfab0;
   height: 50px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -87,7 +97,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background-color: #C9F4C8;
+  background-color: #7bfab0;
   height: 40px;
   display: -webkit-box;
   display: -ms-flexbox;

@@ -1,5 +1,5 @@
-$primaryColour: #C9F4C8;
-$secondaryColour: #ffffff;
+$primaryColour: #7bfab0;
+$secondaryColour: #f1f1f1;
 $mainFont: monospace;
 
 @mixin centreWithBgColour($height, $colour, $disp) {
@@ -8,6 +8,20 @@ $mainFont: monospace;
     background-color: $colour;
     height: $height;
     display: $disp;
+}  
+
+@mixin fontParams($font, $size) {
+    font-family: $font;
+    font-size: $size;
+}
+
+.rows {
+    text-align: center;    
+    .row {
+        padding-left: 5%;
+        padding-right: 5%;
+        display: inline-block;
+    }
 }
 
 .container {
@@ -41,11 +55,9 @@ $mainFont: monospace;
 }
 
 h2 {  
-    font-family: $mainFont;
-    font-size: 4rem;
+    @include fontParams($mainFont, 4rem);
 }
 
 p {
-    font-family: $mainFont;
-    font-size: 0.9rem;
+    @include fontParams($mainFont, 0.9rem);
 }
