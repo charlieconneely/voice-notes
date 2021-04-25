@@ -30,7 +30,7 @@ const Notes = (props) => {
     }, [])      
 
     const handleNumber = (word) => {
-        /* return -1 if number is invalid */
+        /* returns -1 if word is invalid */
         let num = isValidNumber(word, storedNotes)
         if (num !== -1) {
             deleteNote(storedNotes[num])

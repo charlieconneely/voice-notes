@@ -7,6 +7,22 @@ import KeyboardVoiceIcon from '@material-ui/icons/KeyboardVoice'
 import Note from './note'
 import '../styles/style.css'
 
+function formattedDate() {
+    let d = new Date();
+    let month = '' + (d.getMonth() + 1);
+    let day = '' + (d.getUTCDate());
+
+    /* DD/MM */
+    if (month.length < 2) {
+        month = '0' + month;
+    }
+    if (day.length < 2) {
+        day = '0' + day;
+    }
+
+    return [day, month, d.getFullYear()].join('-');
+}
+
 const Create = (props) => {
 
     const [isListening, setIsListening] = useState(false);
@@ -82,13 +98,14 @@ const Create = (props) => {
     const saveNotes = () => {
         /* Save on localStorage */
         setStoredNotes([...storedNotes, ...notes])
-        /* Clear local array */
         setNotes([])
     }
 
     const saveEntries = () => {
-        setStoredEntries([...storedEntries, diaryEntry])
-        setDiaryEntry('')
+        let entryWithDate = formattedDate() + ': ' + diaryEntry;
+        /* Save on localStorage */
+        setStoredEntries([...storedEntries, entryWithDate]);
+        setDiaryEntry('');
     }
 
     const saveAll = () => {
@@ -99,6 +116,7 @@ const Create = (props) => {
     const deleteNote = (val) => {
         setNotes(notes.filter(note => note !== val));
     }
+
     var notesArr = [...notes];
     return (
         <div className="container">
