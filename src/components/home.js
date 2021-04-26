@@ -8,16 +8,20 @@ import '../styles/style.css'
 const Home = (props) => {
 
     const commands = [
-        { 
+        {
             command: ['Go back', 'Back again'],
-            callback: () => goToPrev() 
+            callback: () => goToPrev()
         },
         {
             command: 'view notes',
             callback: () => goToNotes()
         },
         {
-            command: 'create note',
+            command: 'view diary',
+            callback: () => goToDiary()
+        },
+        {
+            command: 'create',
             callback: () => goToCreate()
         }
     ]
@@ -52,7 +56,7 @@ const Home = (props) => {
     return (
         <div className="container">
             <div className='heading'>
-                <h2>Voice Diary</h2> 
+                <h2>Voice Diary</h2>
             </div>
             <div className='authors'>
                 <p>Created by: <a href="https://github.com/charlieconneely">Charlie Conneely</a></p>
@@ -62,7 +66,7 @@ const Home = (props) => {
                 <Button onClick={goToDiary} variant='outlined' size='large'>"View Diary"</Button>
             </div>
             <div className='option'>
-                <Button onClick={goToCreate} variant='outlined' size='large'>"Create Note"</Button>
+                <Button onClick={goToCreate} variant='outlined' size='large'>"Create"</Button>
             </div>
         </div>
     )

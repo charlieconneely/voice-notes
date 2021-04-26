@@ -12,7 +12,7 @@ function formattedDate() {
     let month = '' + (d.getMonth() + 1);
     let day = '' + (d.getUTCDate());
 
-    /* DD/MM */
+    // DD/MM 
     if (month.length < 2) {
         month = '0' + month;
     }
@@ -34,7 +34,7 @@ const Create = (props) => {
 
     const commands = [
         {
-            command: ["Don't forget *", "Remember *"],
+            command: ["Don't forget *", "Remember *", "Remind me *"],
             callback: (note) => {isListening ? setNotes([...notes, `${note}`]) : alert('Not listening.')}
         },
         {
@@ -60,12 +60,18 @@ const Create = (props) => {
         {
             command: "Save *",
             callback: (field) => {
-                if (field === 'all') {
-                    saveAll();
-                } else if(field === 'notes') {
-                    saveNotes();
-                } else if(field === 'entry'){
-                    saveEntries();
+                switch (field) {
+                    case 'all':
+                        saveAll();
+                        break;
+                    case 'notes':
+                        saveNotes();
+                        break;
+                    case 'entry':
+                        saveEntries();
+                        break;
+                    default:
+                        // unrecognized
                 }
             }
         },

@@ -61,6 +61,9 @@ const Diary = (props) => {
             <div className="note">
                 <Button onClick={backToHome} variant='outlined' size='small'>"Back"</Button>
             </div>
+            <div className="authors">
+                <p>Delete command: "delete number _"</p>
+            </div>
         </div>
     )
 }
