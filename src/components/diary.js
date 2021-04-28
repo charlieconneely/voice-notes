@@ -9,9 +9,9 @@ const Diary = (props) => {
 
     const [storedEntries, setStoredEntries] = useState([])
     const commands = [
-        { 
+        {
             command: ['Go back', 'Back'],
-            callback: () => backToHome() 
+            callback: () => backToHome()
         },
         {
             command: ['Delete number *'],
@@ -20,10 +20,13 @@ const Diary = (props) => {
     ]
 
     useSpeechRecognition({ commands });
-    
+
     useEffect(() => {
         SpeechRecognition.startListening({ continuous: true })
         let entries = JSON.parse(localStorage.getItem('entries'));
+        if (entries === null) {
+          entries = [];
+        }
         setStoredEntries([...entries])
     }, [])
 
@@ -54,8 +57,8 @@ const Diary = (props) => {
                 <h3>Your Entries:</h3>
             </div>
 
-            {entriesArr.map( (entry, index) => 
-                <Entry key={entry} deleteEntry={deleteEntry} index={index} entry={entry} /> 
+            {entriesArr.map( (entry, index) =>
+                <Entry key={entry} deleteEntry={deleteEntry} index={index} entry={entry} />
             )}
 
             <div className="note">

@@ -11,23 +11,26 @@ const Notes = (props) => {
     const [storedNotes, setStoredNotes] = useState([])
 
     const commands = [
-        { 
+        {
             command: ['Go back', 'Back'],
-            callback: () => backToHome() 
+            callback: () => backToHome()
         },
         {
             command: ['Delete number *'],
             callback: (num) => handleNumber(num)
         }
     ]
-    
+
     useSpeechRecognition({ commands });
 
     useEffect(() => {
         SpeechRecognition.startListening({ continuous: true })
         let notes = JSON.parse(localStorage.getItem('notes'));
+        if (notes === null) {
+          notes = [];
+        }
         setStoredNotes([...notes])
-    }, [])      
+    }, [])
 
     const handleNumber = (word) => {
         /* returns -1 if word is invalid */
@@ -35,11 +38,14 @@ const Notes = (props) => {
         if (num !== -1) {
             deleteNote(storedNotes[num])
         }
-    } 
+    }
 
     /* called from Note child component */
     const deleteNote = (val) => {
         let notesArr = JSON.parse(localStorage.getItem('notes'))
+        if (notesArr==null) {
+          notesArr = [];
+        }
         notesArr = notesArr.filter(note => note !== val)
         localStorage.setItem('notes', JSON.stringify(notesArr))
         setStoredNotes([...notesArr])
@@ -56,9 +62,9 @@ const Notes = (props) => {
                 <h3>Remember...</h3>
             </div>
 
-            {notesArr.map( (note, index) => 
-                <Note key={note} deleteNote={deleteNote} index={index} note={note} /> 
-            )} 
+            {notesArr.map( (note, index) =>
+                <Note key={note} deleteNote={deleteNote} index={index} note={note} />
+            )}
             <div className="note">
                 <Button onClick={backToHome} variant='outlined' size='small'>"Back"</Button>
             </div>
